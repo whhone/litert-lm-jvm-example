@@ -9,12 +9,15 @@ plugins {
   // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
   alias(libs.plugins.kotlin.jvm)
 
+  alias(libs.plugins.jetbrainsCompose)
+  alias(libs.plugins.compose.compiler)
+
   // Apply the application plugin to add support for building a CLI application in Java.
   application
 }
 
 repositories {
-  mavenLocal()
+  // mavenLocal()
   google()
   mavenCentral()
 }
@@ -24,7 +27,8 @@ dependencies {
 
   // This dependency is used by the application.
   implementation(libs.guava)
-  implementation("com.google.ai.edge.litertlm:litertlm-jvm:0.0.0-alpha06")
+  implementation("com.jakewharton.mosaic:mosaic-runtime:0.18.0")
+  implementation("com.google.ai.edge.litertlm:litertlm-jvm:latest.release")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
