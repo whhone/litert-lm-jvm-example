@@ -9,24 +9,43 @@ import kotlinx.coroutines.*
 import com.google.ai.edge.litertlm.*
 
 
+
 fun main(args: Array<String>) {
   val modelPath =
-    requireNotNull(args.getOrNull(0)) { "Model path must be provided as the first argument." }
+      requireNotNull(args.getOrNull(0)) { "Model path must be provided as the first argument." }
+
 
   runMosaicBlocking {
     var response by remember { mutableStateOf("") }
-    Box {
-      Column {
-        Row {
-          Text("Tell me a joke  ")
-          Text(" | ")
+
+    val screen = LocalTerminalState.current
+    val screenSize = screen.size
+    val screenWidth = screenSize.columns
+    val screenHeight = screenSize.rows
+
+    Box(modifier = Modifier.fillMaxWidth()) {
+      Column(modifier = Modifier.width(screenWidth)) {
+        Row(
+          modifier = Modifier.width(screenWidth),
+          horizontalArrangement = Arrangement.End,
+        ) {
+          Text(
+            "Tell me a joke",
+            modifier = Modifier.border().padding(1, 0),
+          )
         }
-        Row {
-          Text("")
-          Text(response)
+        if (response != "") {
+          Text(
+            "${response}",
+            modifier = Modifier.border().padding(1, 0),
+          )
         }
       }
     }
+
+    // LaunchedEffect(Unit) {
+    //   awaitCancellation()
+    // }
 
     LaunchedEffect(Unit) {
       Engine.setNativeMinLogServerity(LogSeverity.ERROR) // silence noisy log for the TUI.
