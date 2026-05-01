@@ -15,9 +15,9 @@ fun main(args: Array<String>) {
       requireNotNull(args.getOrNull(0)) { "Model path must be provided as the first argument." }
 
   Engine.setNativeMinLogSeverity(LogSeverity.ERROR) // silence noisy log for the TUI.
-  val engine = Engine(EngineConfig(modelPath = modelPath, backend = Backend.CPU))
+  val engine = Engine(EngineConfig(modelPath = modelPath, backend = Backend.CPU()))
   engine.initialize()
-  val conversation = engine.createConversation(ConversationConfig(systemMessage = Message.of("No emoji.")))
+  val conversation = engine.createConversation(ConversationConfig(systemInstruction = Contents.of("No emoji.")))
 
   runMosaicBlocking {
     var messages by remember { mutableStateOf(mutableListOf<String>()) }
