@@ -62,9 +62,6 @@ fun main(args: Array<String>) {
           modifier = Modifier.fillMaxWidth().border().padding(1, 0),
           onEnter = {
             if (input != "") {
-
-              val message = Message.of(input)
-
               val callback = object : MessageCallback {
                 override fun onMessage(message: Message) {
                   currentResponse += message.toString()
@@ -76,7 +73,7 @@ fun main(args: Array<String>) {
                 override fun onError(throwable: Throwable) {}
               }
 
-              conversation.sendMessageAsync(message, callback)
+              conversation.sendMessageAsync(input, callback)
 
               messages.add(input)
               input = ""
