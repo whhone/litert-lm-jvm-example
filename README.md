@@ -1,7 +1,5 @@
 # LiteRT-LM JVM Example
 
-![](./demo.gif)
-
 ```shell
 # Build and run (Linux/macOS)
 ./gradlew installDist && app/build/install/app/bin/app /path/to/model.litertlm

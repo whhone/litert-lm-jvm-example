@@ -9,9 +9,6 @@ plugins {
   // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
   alias(libs.plugins.kotlin.jvm)
 
-  alias(libs.plugins.jetbrainsCompose)
-  alias(libs.plugins.compose.compiler)
-
   // Apply the application plugin to add support for building a CLI application in Java.
   application
 }
@@ -27,7 +24,6 @@ dependencies {
 
   // This dependency is used by the application.
   implementation(libs.guava)
-  implementation("com.jakewharton.mosaic:mosaic-runtime:0.18.0")
   implementation("com.google.ai.edge.litertlm:litertlm-jvm:latest.release")
 }
 
@@ -45,8 +41,4 @@ application {
 
 tasks.named<JavaExec>("run") {
   standardInput = System.`in`
-}
-
-tasks.run {
-  systemProperties["com.google.ai.edge.litertlm.NativeLibraryLoader.DEBUG"] = "true"
 }
