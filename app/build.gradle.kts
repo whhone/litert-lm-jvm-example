@@ -24,7 +24,7 @@ dependencies {
 
   // This dependency is used by the application.
   implementation(libs.guava)
-  implementation("com.google.ai.edge.litertlm:litertlm-jvm:latest.release")
+  implementation("com.google.ai.edge.litertlm:litertlm-jvm:0.18.0")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -41,4 +41,15 @@ application {
 
 tasks.named<JavaExec>("run") {
   standardInput = System.`in`
+}
+
+tasks.register<CreateStartScripts>("createEmbedStartScript") {
+  mainClass.set("org.example.EmbeddingAppKt")
+  applicationName = "embed"
+  outputDir = tasks.named<CreateStartScripts>("startScripts").get().outputDir
+  classpath = tasks.named<CreateStartScripts>("startScripts").get().classpath
+}
+
+tasks.named("installDist") {
+  dependsOn("createEmbedStartScript")
 }
